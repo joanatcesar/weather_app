@@ -40,6 +40,8 @@ function showTemperature(response){
   let description = document.querySelector("#description")
   h2.innerHTML = `${cityName}`
   h3.innerHTML = `${temperature}`
+  status.innerHTML = response.data.weather[0].main
+  description.innerHTML = response.data.weather[0].description
 
 
 }
@@ -51,6 +53,7 @@ function showPosition(position){
   let apiKey = "65bd5d27fb5bb2b47af1afd93925a308"
   let apiUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&units=${unit}&appid=${apiKey}`
   axios.get(apiUrl).then(showTemperature)
+  console.log(apiUrl)
 }
  
 function currentPosition (){
