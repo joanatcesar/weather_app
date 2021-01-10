@@ -4,7 +4,7 @@ input {
   margin: 15px;
   border-radius: 10px;
   border: #ec6e4c;
-  background-color: #f8efec;
+  background-color: #fcdeca;
   box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
   padding: 5px;
 }
@@ -12,7 +12,7 @@ input {
 button {
   border-radius: 50px;
   color: #ec6e4c;
-  background-color: #f8efec;
+  background-color: #fcdeca;
   border: none;
   box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
   transition: all 200ms ease-in-out;
@@ -92,7 +92,7 @@ a:hover {
   border-radius: 10px;
   border-color: #ec6e4c;
   border-width: 2px;
-  background-color: #f8efec;
+  background-color: #fcdeca;
 }
 
 #icon {
