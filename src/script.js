@@ -1,4 +1,3 @@
-
 //current time and day
 
 let weekDays = [
@@ -28,9 +27,8 @@ let sentance = document.querySelector("#time-day");
 sentance.innerHTML = `${week} ${hour}:${minutes}`;
 
 
+//Show temperature
 
-
-//Get geolocation
 function showTemperature(response){
   let temperature = Math.round(response.data.main.temp)
   let h2 = document.querySelector("h2")
@@ -50,7 +48,18 @@ function showTemperature(response){
   iconElement.setAttribute("alt", response.data.weather[0].description);
 }
 
+function deafaultCity (){
+  let cityName = `São Paulo`
+  let unit = "metric"
+  let apiKey = "65bd5d27fb5bb2b47af1afd93925a308"
+  let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${cityName}&units=${unit}&appid=${apiKey}`
+  axios.get(apiUrl).then(showTemperature)
+}
 
+deafaultCity()
+
+
+//Get geolocation
 
 function showPosition(position){
   let lat = (position.coords.latitude)
