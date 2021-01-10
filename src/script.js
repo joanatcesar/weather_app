@@ -15,21 +15,32 @@ let now = new Date();
 
 let week = weekDays[now.getDay()];
 let hour = now.getHours();
+if (hour < 10) {
+    hour = `0${hour}`;
+  }
 let minutes = now.getMinutes();
+if (minutes < 10) {
+    minutes = `0${minutes}`;
+  }
 
 let sentance = document.querySelector("#time-day");
 
 sentance.innerHTML = `${week} ${hour}:${minutes}`;
 
 
+
+
 //Get geolocation
 function showTemperature(response){
   let temperature = Math.round(response.data.main.temp)
   let h2 = document.querySelector("h2")
-  let h3 = document.querySelector("span")
+  let h3 = document.querySelector("#currentTemperature")
   let cityName = response.data.name
+  let status = document.querySelector("#status")
+  let description = document.querySelector("#description")
   h2.innerHTML = `${cityName}`
   h3.innerHTML = `${temperature}`
+
 
 }
 
