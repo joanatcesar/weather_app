@@ -1,30 +1,35 @@
 //current time and day
 
-let weekDays = [
-  "Sunday",
-  "Monday",
-  "Tuesday",
-  "Wednesday",
-  "Thursday",
-  "Friday",
-  "Saturday"
-];
+  
+function formatDate(timestamp) {
+  let date = new Date(timestamp);
 
-let now = new Date();
+  let days = [
+    "Sunday",
+    "Monday",
+    "Tuesday",
+    "Wednesday",
+    "Thursday",
+    "Friday",
+    "Saturday"
+  ];
+  let day = days[date.getDay()];
+  return `${day} ${formatHours(timestamp)}`;
+}
 
-let week = weekDays[now.getDay()];
-let hour = now.getHours();
-if (hour < 10) {
-    hour = `0${hour}`;
+function formatHours(timestamp) {
+  let date = new Date(timestamp);
+  let hours = date.getHours();
+  if (hours < 10) {
+    hours = `0${hours}`;
   }
-let minutes = now.getMinutes();
-if (minutes < 10) {
+  let minutes = date.getMinutes();
+  if (minutes < 10) {
     minutes = `0${minutes}`;
   }
 
-let sentance = document.querySelector("#time-day");
-
-sentance.innerHTML = `${week} ${hour}:${minutes}`;
+  return `${hours}:${minutes}`;
+}
 
 
 //Show temperature
@@ -36,19 +41,26 @@ function showTemperature(response){
   let cityName = response.data.name
   let status = document.querySelector("#status")
   let description = document.querySelector("#description")
-  let iconElement = document.querySelector("#icon");
+  let icon = document.querySelector("#icon");
+  let date = document.querySelector("#time-day");
 
   celsiusTemperature = response.data.main.temp;
 
+  date.innerHTML = formatDate(response.data.dt * 1000);
   h2.innerHTML = `${cityName}`
   h3.innerHTML = Math.round(celsiusTemperature);
   status.innerHTML = response.data.weather[0].main
   description.innerHTML = response.data.weather[0].description
-  iconElement.setAttribute(
+  icon.setAttribute(
     "src",
     `http://openweathermap.org/img/wn/${response.data.weather[0].icon}@2x.png`
   );
-  iconElement.setAttribute("alt", response.data.weather[0].description);
+  icon.setAttribute("alt", response.data.weather[0].description);
+  
+  let unit = "metric"
+  let apiKey = "65bd5d27fb5bb2b47af1afd93925a308"
+  apiUrl = `https://api.openweathermap.org/data/2.5/forecast?q=${cityName}&appid=${apiKey}&units=${unit}`;
+  axios.get(apiUrl).then(displayForecast);
 }
 
 function deafaultCity (){
@@ -57,9 +69,9 @@ function deafaultCity (){
   let apiKey = "65bd5d27fb5bb2b47af1afd93925a308"
   let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${cityName}&units=${unit}&appid=${apiKey}`
   axios.get(apiUrl).then(showTemperature)
+
+  
 }
-
-
 
 
 //Get geolocation
@@ -71,7 +83,7 @@ function showPosition(position){
   let apiKey = "65bd5d27fb5bb2b47af1afd93925a308"
   let apiUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&units=${unit}&appid=${apiKey}`
   axios.get(apiUrl).then(showTemperature)
-  console.log(apiUrl)
+
 }
  
 function currentPosition (){
@@ -96,10 +108,55 @@ function cityTemperature (){
   let apiKey = "65bd5d27fb5bb2b47af1afd93925a308"
   let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${cityName}&units=${unit}&appid=${apiKey}`
   axios.get(apiUrl).then(showTemperature)
+  
+  apiUrl = `https://api.openweathermap.org/data/2.5/forecast?q=${cityName}&appid=${apiKey}&units=${unit}`;
+  axios.get(apiUrl).then(displayForecast);
 }
 
 
 searchButton.addEventListener("click", cityTemperature);
+
+//Forecast
+
+function displayForecast(response) {
+  let cityName = `${searchForm.value}`
+  let unit = "metric"
+  let apiKey = "65bd5d27fb5bb2b47af1afd93925a308"
+  let apiUrl = `https://api.openweathermap.org/data/2.5/forecast?q=${cityName}&units=${unit}&appid=${apiKey}`
+
+  let forecastElement = document.querySelector("#forecast");
+  forecastElement.innerHTML = null;
+  let forecast = null;
+
+  for (let index = 0; index < 5; index++) {
+    forecast = response.data.list[index];
+    forecastElement.innerHTML += `
+
+  <dev class="row" id="forecastBox">
+    <dev class="col-3">
+      <h6>
+        <img
+        src="http://openweathermap.org/img/wn/${
+          forecast.weather[0].icon
+        }@2x.png"
+      />
+      </h6>
+    </dev>
+    <dev class="col-6">
+      <h4>
+        ${formatHours(forecast.dt * 1000)}
+      </h4>
+      <h5>
+        <strong>
+          ${Math.round(forecast.main.temp_max)}°C
+        </strong>
+        / ${Math.round(forecast.main.temp_min)}°C
+      </h5>
+    </dev>
+  </dev>
+`;
+}
+}
 
 
 //celcius to fahrenheit
@@ -132,4 +189,4 @@ let temperatureFahrenheit = document.querySelector("#fahrenheit");
 temperatureFahrenheit.addEventListener("click", changeFahrenheit);
 
 
-deafaultCity()
+deafaultCity();
