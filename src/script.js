@@ -38,13 +38,19 @@ function showTemperature(response){
   let cityName = response.data.name
   let status = document.querySelector("#status")
   let description = document.querySelector("#description")
+  let iconElement = document.querySelector("#icon");
   h2.innerHTML = `${cityName}`
   h3.innerHTML = `${temperature}`
   status.innerHTML = response.data.weather[0].main
   description.innerHTML = response.data.weather[0].description
-
-
+  iconElement.setAttribute(
+    "src",
+    `http://openweathermap.org/img/wn/${response.data.weather[0].icon}@2x.png`
+  );
+  iconElement.setAttribute("alt", response.data.weather[0].description);
 }
+
+
 
 function showPosition(position){
   let lat = (position.coords.latitude)

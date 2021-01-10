@@ -3,16 +3,16 @@
 input {
   margin: 15px;
   border-radius: 10px;
-  border: skyblue;
-  background-color: rgb(233, 244, 248);
+  border: #ec6e4c;
+  background-color: #f8efec;
   box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
   padding: 5px;
 }
 
 button {
   border-radius: 50px;
-  color: skyblue;
-  background-color: rgb(233, 244, 248);
+  color: #ec6e4c;
+  background-color: #f8efec;
   border: none;
   box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
   transition: all 200ms ease-in-out;
@@ -25,9 +25,9 @@ button:hover {
 }
 
 body {
-  color: rgb(3, 20, 41);
+  color: rgb(29, 29, 29);
   font-family: "Quicksand", sans-serif;
-  background-color: rgb(248, 254, 255);
+  background-color: rgb(255, 254, 253);
   max-width: 1200px;
   margin: 20px auto;
 }
@@ -75,16 +75,16 @@ a {
 }
 
 a:hover {
-  color: skyblue;
+  color: #ec6e4c;
   text-decoration: none;
 }
 
 .temperature {
-  color: lightblue;
+  color: #ec6e4c;
 }
 
 .fas {
-  color: skyblue;
+  color: #ec6e4c;
 }
 
 .fa-cloud-moon-rain {
@@ -100,7 +100,11 @@ a:hover {
   border-style: solid;
   margin: 5px;
   border-radius: 10px;
-  border-color: skyblue;
+  border-color: #ec6e4c;
   border-width: 2px;
-  background-color: rgb(233, 244, 248);
+  background-color: #f8efec;
+}
+
+img {
+  width: 200px;
 }
