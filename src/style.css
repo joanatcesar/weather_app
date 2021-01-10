@@ -74,12 +74,16 @@ a {
   color: rgb(3, 20, 41);
 }
 
+img {
+  width: 200px;
+}
+
 a:hover {
   color: #ec6e4c;
   text-decoration: none;
 }
 
-.temperature {
+.active {
   color: #ec6e4c;
 }
 
@@ -103,8 +107,4 @@ a:hover {
   border-color: #ec6e4c;
   border-width: 2px;
   background-color: #f8efec;
-}
-
-img {
-  width: 200px;
 }

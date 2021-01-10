@@ -37,8 +37,11 @@ function showTemperature(response){
   let status = document.querySelector("#status")
   let description = document.querySelector("#description")
   let iconElement = document.querySelector("#icon");
+
+  celsiusTemperature = response.data.main.temp;
+
   h2.innerHTML = `${cityName}`
-  h3.innerHTML = `${temperature}`
+  h3.innerHTML = Math.round(celsiusTemperature);
   status.innerHTML = response.data.weather[0].main
   description.innerHTML = response.data.weather[0].description
   iconElement.setAttribute(
@@ -56,7 +59,7 @@ function deafaultCity (){
   axios.get(apiUrl).then(showTemperature)
 }
 
-deafaultCity()
+
 
 
 //Get geolocation
@@ -101,22 +104,32 @@ searchButton.addEventListener("click", cityTemperature);
 
 //celcius to fahrenheit
 
-let temperatureCelcius = document.querySelector("#celcius");
-let temperatureFahrenheit = document.querySelector("#fahrenheit");
-let h3 = document.querySelector("span");
+
+let h3 = document.querySelector("#currentTemperature");
 
 function changeFahrenheit() {
-  h3.innerHTML = `66`;
-  temperatureCelcius.classList.remove("temperature");
-  temperatureFahrenheit.classList.add("temperature");
+  event.preventDefault();
+  let temperatureElement = document.querySelector("#currentTemperature");
+  let fahrenheiTemperature = (celsiusTemperature * 9) / 5 + 32;
+  temperatureCelcius.classList.remove("active");
+  temperatureFahrenheit.classList.add("active");
+  temperatureElement.innerHTML = Math.round(fahrenheiTemperature);
 }
 function changeCelcius() {
-  h3.innerHTML = `19`;
-  temperatureCelcius.classList.add("temperature");
-  temperatureFahrenheit.classList.remove("temperature");
+  event.preventDefault();
+  temperatureCelcius.classList.add("active");
+  temperatureFahrenheit.classList.remove("active");
+  let temperatureElement = document.querySelector("#currentTemperature");
+  temperatureElement.innerHTML = Math.round(celsiusTemperature);
 }
 
+let celsiusTemperature = null;
+
+let temperatureCelcius = document.querySelector("#celcius");
 temperatureCelcius.addEventListener("click", changeCelcius);
 
+let temperatureFahrenheit = document.querySelector("#fahrenheit");
 temperatureFahrenheit.addEventListener("click", changeFahrenheit);
 
+
+deafaultCity()
